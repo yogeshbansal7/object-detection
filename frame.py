@@ -1,5 +1,3 @@
-
-
 import cv2
 import time
 import numpy as np
@@ -17,10 +15,10 @@ while True:
         print("Failed to grab frame")
         break
 
-    transposed_frame = cv2.transpose(frame) 
-    #transpose(1, 0, 2) transposes the image
+    
+    # frame = cv2.resize(frame, (640, 480)) # Resize frame to 640x480
 
-    frames_list.append(transposed_frame)
+    frames_list.append(frame)
 
     current_time = time.time()
 
@@ -33,8 +31,8 @@ while True:
 frames_array = np.array(frames_list)
 np.save('frames_array.npy', frames_array)
 
-print("shape is : ")
-print(transposed_frame.shape)  # Print the shape of the transposed frame
+print("Shape is:")
+print(frame.shape) 
 
 cam.release()
 cv2.destroyAllWindows()
