@@ -1,12 +1,11 @@
 import cv2
-import time
 import numpy as np
+import time
 
 cam = cv2.VideoCapture(0)
 
-start_time = time.time()
-
 frames_list = []
+start_time = time.time()
 
 while True:
     ret, frame = cam.read()
@@ -15,24 +14,18 @@ while True:
         print("Failed to grab frame")
         break
 
-    
-    # frame = cv2.resize(frame, (640, 480)) # Resize frame to 640x480
+    frame = frame.transpose(2, 1, 0)
 
     frames_list.append(frame)
 
     current_time = time.time()
-
     if current_time - start_time >= 1:
-        print("1 second has passed")
         break
 
-    cv2.imshow("Webcam Frame", frame)
-
 frames_array = np.array(frames_list)
-np.save('frames_array.npy', frames_array)
 
-print("Shape is:")
-print(frame.shape) 
+print("Frame shape is : ", frame.shape)
+print("Frames shape : ", frames_array.shape)
 
 cam.release()
 cv2.destroyAllWindows()
