@@ -8,13 +8,13 @@ frames_list = []
 start_time = time.time()
 
 while True:
-    ret, frame = cam.read()
+    ret, frm = cam.read()
 
     if not ret:
         print("Failed to grab frame")
         break
 
-    frame = frame.transpose(2, 1, 0)
+    frame = frm.transpose(2, 1, 0)
 
     frames_list.append(frame)
 
@@ -23,9 +23,11 @@ while True:
         break
 
 frames_array = np.array(frames_list)
-
+    
+print("Original shape is: ", frm.shape)
 print("Frame shape is : ", frame.shape)
 print("Frames shape : ", frames_array.shape)
+print("Frames per second : ", len(frames_array))
 
 cam.release()
 cv2.destroyAllWindows()
